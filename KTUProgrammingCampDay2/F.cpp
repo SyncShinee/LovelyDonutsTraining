@@ -24,7 +24,7 @@ void buildsa(char *s, int n, int m) {
     for (i = 0; i < n; ++ i) ++ c[x[i] = s[i]];
     for (i = 1; i < m; ++ i) c[i] += c[i - 1];
     for (i = n - 1; i >= 0; -- i) sa[--c[x[i]]] = i;
-    for (k = 1, p = 0; k < n; k << 1, p = 0) {
+    for (k = 1, p = 0; k < n; k <<= 1, p = 0) {
 	for (i = n - k; i < n; ++ i) y[p ++] = i;
 	for (i = 0; i < n; ++ i) if (sa[i] >= k) y[p ++] = sa[i] - k;
 	memset(c, 0, m << 2);
