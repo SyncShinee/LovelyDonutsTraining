@@ -11,8 +11,7 @@ using namespace std;
 const int N = 100010;
 int Q;
 struct node {
-    int len, k;
-    node(int _l = 0, int _k = 0) : len(_l), k(_k) {}
+    int len, k, id;
 }q[N];
 bool operator <(const node &A, const node &B) {
     return A.len > B.len;
@@ -83,13 +82,14 @@ int getk(int k, int l, int r, int rt) {
     }
     return getk(k, lson);
 }
-
+int ans[N];
 int main() {
     scanf("%s", s);
     int len = strlen(s);
     scanf("%d", &Q);
     for (int i = 0; i < Q; ++ i) {
 	scanf("%d%d", &q[i].len, &q[i].k);
+	q[i].id = i;
     }
     sort(q, q + Q);
     buildsa(s, len, 128);
@@ -99,7 +99,10 @@ int main() {
 	    nw --;
 	    update(Rank[len - nw], len - nw + 1, 0, len - 1, 1);
 	}
-	printf("%d\n", getk(q[i].k, 0, len - 1, 1));
+	ans[q[i].id] = getk(q[i].k, 0, len - 1, 1);
+    }
+    for (int i = 0; i < Q; ++ i) {
+	printf("%d\n", ans[i]);
     }
     return 0;
 }
